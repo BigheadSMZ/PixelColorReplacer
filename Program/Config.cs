@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace PixelColorReplacer
 {
@@ -18,16 +13,6 @@ namespace PixelColorReplacer
         {
             AppPath       = Assembly.GetExecutingAssembly().Location;
             BaseFolder    = AppContext.BaseDirectory;;
-        }
-
-        public static void UpdateInputPath(string path)
-        {
-            InputPath = path;
-        }
-
-        public static void UpdateOutputPath(string path)
-        {
-            OutputPath = path;
         }
     }
 }

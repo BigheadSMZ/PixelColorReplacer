@@ -81,11 +81,11 @@ namespace PixelColorReplacer
                 this.textBox_InputPath.Text = "";
                 return;
             }
-            Config.UpdateInputPath(path);
+            Config.InputPath = path;
             this.textBox_InputPath.Text = path;
 
             string output = Path.Combine(path, "~Output");
-            Config.UpdateOutputPath(output);
+            Config.OutputPath = output;
             this.textBox_OutputPath.Text = output;
         }
 
@@ -130,7 +130,7 @@ namespace PixelColorReplacer
                 return;
             }
             realPath = Path.Combine(realPath, "~Output");
-            Config.UpdateOutputPath(realPath);
+            Config.OutputPath = realPath;
             this.textBox_OutputPath.Text = realPath;
         }
 
