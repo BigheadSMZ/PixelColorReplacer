@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PixelColorReplacer
+﻿namespace PixelColorReplacer
 {
     /*===================================================================================================================================
      * Powershell has a useful function "Get-Item" which is very similar to "FileInfo" and "DirectoryInfo" in C#. Unfortunately, FileInfo 

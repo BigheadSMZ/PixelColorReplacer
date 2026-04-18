@@ -4,6 +4,7 @@ namespace PixelColorReplacer
 {
     internal class Config
     {
+        public static string Version = "1.0.0";
         public static string AppPath;
         public static string BaseFolder;
         public static string InputPath;

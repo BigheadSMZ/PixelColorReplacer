@@ -247,7 +247,7 @@
             Name = "Form_MainForm";
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Pixel Color Replacer v1.0.0";
+            Text = "Pixel Color Replacer";
             ((System.ComponentModel.ISupportInitialize)numBox_Tolerance).EndInit();
             ResumeLayout(false);
             PerformLayout();

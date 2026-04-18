@@ -9,6 +9,8 @@
         {
             MainDialog  = new Form_MainForm();
             OkayDialog  = new Form_OkayForm();
+
+            MainDialog.Text = "Pixel Color Replacer v" + Config.Version;
         }
         public static string CreateFolderSelectDialog(string initialPath = "")
         {
