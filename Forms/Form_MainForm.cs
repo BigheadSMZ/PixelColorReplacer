@@ -260,7 +260,7 @@ namespace PixelColorReplacer
                 return;
             }
 
-            if (!Config.OutputPath.TestPath())
+            if (String.IsNullOrEmpty(Config.OutputPath))
             {
                 string title   = "Input Path Empty";
                 string message = "Output Path was either invalid or empty!";
