@@ -27,7 +27,7 @@ namespace PixelColorReplacer
 
         public static void UpdateOutputPath(string path)
         {
-            OutputPath = Path.Combine(path, "~Output");
+            OutputPath = path;
         }
     }
 }

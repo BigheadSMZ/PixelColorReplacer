@@ -164,7 +164,6 @@
             textBox_InputPath.Name = "textBox_InputPath";
             textBox_InputPath.Size = new Size(272, 23);
             textBox_InputPath.TabIndex = 9;
-            textBox_InputPath.TextChanged += textBox_InputPath_TextChanged;
             textBox_InputPath.DragDrop += textBox_InputPath_DragDrop;
             textBox_InputPath.DragEnter += textBox_InputPath_DragEnter;
             textBox_InputPath.Leave += textBox_InputPath_Leave;
@@ -216,7 +215,6 @@
             textBox_OutputPath.Name = "textBox_OutputPath";
             textBox_OutputPath.Size = new Size(272, 23);
             textBox_OutputPath.TabIndex = 12;
-            textBox_OutputPath.TextChanged += textBox_OutputPath_TextChanged;
             textBox_OutputPath.DragDrop += textBox_OutputPath_DragDrop;
             textBox_OutputPath.DragEnter += textBox_OutputPath_DragEnter;
             textBox_OutputPath.Leave += textBox_OutputPath_Leave;

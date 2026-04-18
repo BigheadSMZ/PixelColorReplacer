@@ -6,8 +6,6 @@ namespace PixelColorReplacer
         Color? _original;
         Color? _replace;
         int _tolerance;
-        string _inputPath;
-        string _outputPath;
         int _selectedIndex = -1;
 
         public Form_MainDialog()
@@ -17,13 +15,11 @@ namespace PixelColorReplacer
             MainControl_ListView.DrawSubItem += MainControl_ListView_DrawSubItem;
         }
 
-
         /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                 CUSTOM DRAW LISTBOX CELL
 
         -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
 
         private void MainControl_ListView_DrawSubItem(object sender, DrawListViewSubItemEventArgs e)
         {
@@ -48,58 +44,49 @@ namespace PixelColorReplacer
 
         /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-                GAME PATH
+                INPUT PATH
 
         -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
 
-        private void textBox_InputPath_TextChanged(object sender, EventArgs e)
-        {
-            string text = (sender as TextBox).Text;
-            if (text.TestPath())
-            {
-                _inputPath = text;
-                Config.UpdateInputPath(_inputPath);
-            }
-        }
-        private void textBox_InputPath_Leave(object sender, EventArgs e)
-        {
-            string text = (sender as TextBox).Text;
-            if (text != "" && text.TestPath())
-            {
-                _inputPath = text;
-                Config.UpdateInputPath(_inputPath);
-            }
-            else
-                this.textBox_InputPath.Text = _inputPath;
-        }
         private void textBox_InputPath_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
         }
+
         private void textBox_InputPath_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] DroppedPath = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                if (DroppedPath[0] != "" && DroppedPath[0].TestPath())
-                {
-                    _inputPath = DroppedPath[0];
-                    Config.UpdateInputPath(_inputPath);
-                    this.textBox_InputPath.Text = _inputPath;
-                }
+                InputPath_Finish(DroppedPath[0]);
             }
         }
+
+        private void textBox_InputPath_Leave(object sender, EventArgs e)
+        {
+            string text = (sender as TextBox).Text;
+            InputPath_Finish(text);
+        }
+
         private void button_InputPath_Click(object sender, EventArgs e)
         {
             string selectedPath = Forms.CreateFolderSelectDialog(Config.BaseFolder);
+            InputPath_Finish(selectedPath);
+        }
 
-            if (selectedPath != "" && selectedPath.TestPath())
+        private void InputPath_Finish(string path)
+        {
+            if (path == "" || !path.TestPath())
             {
-                _inputPath = selectedPath;
-                Config.UpdateInputPath(_inputPath);
-                this.textBox_InputPath.Text = _inputPath;
+                this.textBox_InputPath.Text = "";
+                return;
             }
+            Config.UpdateInputPath(path);
+            this.textBox_InputPath.Text = path;
+
+            string output = Path.Combine(path, "~Output");
+            Config.UpdateOutputPath(output);
+            this.textBox_OutputPath.Text = output;
         }
 
         /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -107,55 +94,44 @@ namespace PixelColorReplacer
                 OUTPUT PATH
 
         -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
-
-        private void textBox_OutputPath_TextChanged(object sender, EventArgs e)
-        {
-            string text = (sender as TextBox).Text;
-            if (text.TestPath())
-            {
-                _outputPath = text;
-                Config.UpdateOutputPath(_outputPath);
-            }
-        }
-        private void textBox_OutputPath_Leave(object sender, EventArgs e)
-        {
-            string text = (sender as TextBox).Text;
-            if (text != "" && text.TestPath())
-            {
-                _outputPath = text;
-                Config.UpdateOutputPath(_outputPath);
-            }
-            else
-                this.textBox_OutputPath.Text = _outputPath;
-        }
         private void textBox_OutputPath_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
         }
+
         private void textBox_OutputPath_DragDrop(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
             {
                 string[] DroppedPath = (string[])e.Data.GetData(DataFormats.FileDrop);
-
-                if (DroppedPath[0] != "" && DroppedPath[0].TestPath())
-                {
-                    _outputPath = DroppedPath[0];
-                    Config.UpdateOutputPath(_outputPath);
-                    this.textBox_OutputPath.Text = _outputPath;
-                }
+                OutputPath_Finish(DroppedPath[0]);
             }
         }
+
+        private void textBox_OutputPath_Leave(object sender, EventArgs e)
+        {
+            string text = (sender as TextBox).Text;
+            OutputPath_Finish(text);
+        }
+
         private void button_OutputPath_Click(object sender, EventArgs e)
         {
             string selectedPath = Forms.CreateFolderSelectDialog(Config.BaseFolder);
+            OutputPath_Finish(selectedPath);
+        }
 
-            if (selectedPath != "" && selectedPath.TestPath())
+        private void OutputPath_Finish(string path)
+        {
+            string realPath = path.Replace("~Output","");
+
+            if (realPath == "" || !realPath.TestPath())
             {
-                _outputPath = selectedPath;
-                Config.UpdateOutputPath(_outputPath);
-                this.textBox_OutputPath.Text = _outputPath;
+                this.textBox_OutputPath.Text = "";
+                return;
             }
+            realPath = Path.Combine(realPath, "~Output");
+            Config.UpdateOutputPath(realPath);
+            this.textBox_OutputPath.Text = realPath;
         }
 
         /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -194,13 +170,15 @@ namespace PixelColorReplacer
         private void button_SourceColor_Click(object sender, EventArgs e)
         {
             var color = GetColor(sender as Button);
-            if (color != null) _original = color;
+            if (color != null) 
+                _original = color;
         }
 
         private void button_ReplaceColor_Click(object sender, EventArgs e)
         {
-            var button = sender as Button;
-            _replace = GetColor(button);
+            var color = GetColor(sender as Button);
+            if (color != null) 
+                _replace = color;
         }
 
         private void numBox_Tolerance_ValueChanged(object sender, EventArgs e)
