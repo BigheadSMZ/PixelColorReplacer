@@ -12,7 +12,7 @@ namespace PixelColorReplacer
         public static void Initialize()
         {
             AppPath       = Assembly.GetExecutingAssembly().Location;
-            BaseFolder    = AppContext.BaseDirectory;;
+            BaseFolder    = AppContext.BaseDirectory;
         }
     }
 }

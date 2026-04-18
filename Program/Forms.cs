@@ -2,11 +2,13 @@
 {
     internal class Forms
     {
-        public static Form_MainDialog  MainDialog;
+        public static Form_MainForm  MainDialog;
+        public static Form_OkayForm  OkayDialog; 
 
         public static void Initialize()
         {
-            MainDialog  = new Form_MainDialog();
+            MainDialog  = new Form_MainForm();
+            OkayDialog  = new Form_OkayForm();
         }
         public static string CreateFolderSelectDialog(string initialPath = "")
         {

@@ -1,6 +1,6 @@
 ﻿namespace PixelColorReplacer
 {
-    partial class Form_MainDialog
+    partial class Form_MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form_MainForm));
             MainControl_ListView = new ListView();
             SourceColor = new ColumnHeader();
             TargetColor = new ColumnHeader();
@@ -219,7 +219,7 @@
             textBox_OutputPath.DragEnter += textBox_OutputPath_DragEnter;
             textBox_OutputPath.Leave += textBox_OutputPath_Leave;
             // 
-            // Form_MainDialog
+            // Form_MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -244,7 +244,7 @@
             MaximumSize = new Size(345, 468);
             MinimizeBox = false;
             MinimumSize = new Size(345, 468);
-            Name = "Form_MainDialog";
+            Name = "Form_MainForm";
             SizeGripStyle = SizeGripStyle.Hide;
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Pixel Color Replacer v1.0.0";

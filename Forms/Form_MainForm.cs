@@ -1,6 +1,6 @@
 namespace PixelColorReplacer
 {
-    public partial class Form_MainDialog : Form
+    public partial class Form_MainForm : Form
     {
         ColorDialog _colorDialog = new ColorDialog();
         Color? _original;
@@ -8,7 +8,7 @@ namespace PixelColorReplacer
         int _tolerance;
         int _selectedIndex = -1;
 
-        public Form_MainDialog()
+        public Form_MainForm()
         {
             InitializeComponent();
             MainControl_ListView.DrawColumnHeader += (s, e) => e.DrawDefault = true;
@@ -40,6 +40,30 @@ namespace PixelColorReplacer
             {
                 e.DrawDefault = true;
             }
+        }
+
+        /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+                TOGGLE DIALOG
+
+        -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+        private void ToggleForm(bool toggle)
+        {
+            textBox_InputPath.Enabled    = toggle;
+            button_InputPath.Enabled     = toggle;
+            label_InputPath.Enabled      = toggle;
+            textBox_OutputPath.Enabled   = toggle;
+            button_OutputPath.Enabled    = toggle;
+            label_OutputPath.Enabled     = toggle;
+            MainControl_ListView.Enabled = toggle;
+            button_SourceColor.Enabled   = toggle;
+            button_ReplaceColor.Enabled  = toggle;
+            numBox_Tolerance.Enabled     = toggle;
+            button_AddColors.Enabled     = toggle;
+            button_Start.Enabled         = toggle;
+            button_Clear.Enabled         = toggle;
+            button_Exit.Enabled          = toggle;
         }
 
         /*-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -228,7 +252,37 @@ namespace PixelColorReplacer
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
+            if (!Config.InputPath.TestPath())
+            {
+                string title   = "Input Path Empty";
+                string message = "You must select an Input Path with images!";
+                Forms.OkayDialog.Display(title, 260, 18, 60, 24, 10, message);
+                return;
+            }
+
+            if (!Config.OutputPath.TestPath())
+            {
+                string title   = "Input Path Empty";
+                string message = "Output Path was either invalid or empty!";
+                Forms.OkayDialog.Display(title, 260, 18, 60, 24, 10, message);
+                return;
+            }
+
+            if (MainControl_ListView.Items.Count <= 0)
+            {
+                string title   = "No Colors Entered";
+                string message = "You must add at least one color to replace!";
+                Forms.OkayDialog.Display(title, 260, 18, 66, 24, 10, message);
+                return;
+            }
+
+            ToggleForm(false);
             Functions.ExchangeColors();
+            ToggleForm(true);
+
+            string titleB   = "Finished!";
+            string messageB = "Finished replacing colors in images!";
+            Forms.OkayDialog.Display(titleB, 260, 18, 75, 24, 10, messageB);
         }
 
         private void button_Clear_Click(object sender, EventArgs e)
